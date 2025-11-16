@@ -4,9 +4,6 @@ env:
   variables:
     DOCKER_IMAGE_NAME: "$1"
 phases:
-  install:
-    commands:
-      - apt-get update -y && apt-get install -y git
   pre_build:
     commands:
       - echo "This is Repo URL - $CODEBUILD_SOURCE_REPO_URL"
