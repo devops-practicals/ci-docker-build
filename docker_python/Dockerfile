@@ -12,7 +12,7 @@ RUN addgroup --system app && adduser --system --group app
 WORKDIR $MICRO_SERVICE
 
 # OPTIMIZATION: Copy ONLY requirements.txt first to leverage Docker layer caching
-COPY src/requirements.txt .
+COPY --chown=app:app src/requirements.txt .
 
 # Install dependencies
 # Added --no-cache-dir to prevent pip from storing downloaded packages, reducing image size
@@ -20,10 +20,7 @@ RUN pip install --upgrade pip --no-cache-dir && \
     pip install -r requirements.txt --no-cache-dir
 
 # Copy the rest of the application code
-COPY src/ .
-
-# Change ownership of the application files to the non-root user
-RUN chown -R app:app $MICRO_SERVICE
+COPY --chown=app:app src/ .
 
 # Switch to the non-root user
 USER app
