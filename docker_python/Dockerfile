@@ -1,3 +1,4 @@
+# Base Image
 FROM python:3.13-slim
 
 # Combined into a single ENV instruction to reduce layers
