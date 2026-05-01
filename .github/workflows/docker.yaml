@@ -12,6 +12,7 @@ on:
 
 env:
   APP_NAME: financeplanner
+  APP_VERSION: "1.0.0"
 
 jobs:
   docker:
@@ -31,14 +32,10 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}
           tags: |
-            # SemVer tags (only active when triggered by a Git Tag)
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            # Fallback tag for main branch pushes (creates 'latest' tag)
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            # Optional: Add the short commit SHA as a tag for trackability
-            type=sha,enable=${{ github.ref == 'refs/heads/main' }}
+            # Tags the image exactly with the APP_VERSION variable above
+            type=raw,value=${{ env.APP_VERSION }}
+            # Always tags the image as 'latest' on every push to main
+            type=raw,value=latest
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
