@@ -31,10 +31,14 @@ jobs:
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}
           tags: |
-            # This generates the tags: 1.2.3, 1.2, 1, and latest
+            # SemVer tags (only active when triggered by a Git Tag)
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
+            # Fallback tag for main branch pushes (creates 'latest' tag)
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            # Optional: Add the short commit SHA as a tag for trackability
+            type=sha,enable=${{ github.ref == 'refs/heads/main' }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
       - name: Set up Docker Buildx
