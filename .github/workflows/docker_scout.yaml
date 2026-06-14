@@ -54,7 +54,7 @@ jobs:
       - name: Docker Scout Scan
         uses: docker/scout-action@v1
         with:
-          command: cves
+          command: cves,recommendations
           # Pointing Scout to the primary version tag we just built locally
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
           only-severities: critical,high,medium,low
