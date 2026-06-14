@@ -10,7 +10,7 @@ on:
 
 env:
   APP_NAME: financeplanner
-  APP_VERSION: "1.1.0"
+  APP_VERSION: "1.2.0"
 
 jobs:
   docker:
@@ -57,7 +57,7 @@ jobs:
           command: cves
           # Pointing Scout to the primary version tag we just built locally
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:${{ env.APP_VERSION }}
-          only-severities: critical
+          only-severities: critical,high,medium,low
           exit-code: true # This explicitly fails the workflow if critical vulnerabilities are found
 
       # 4. Push the image (Only executes if the Scout scan passes)
