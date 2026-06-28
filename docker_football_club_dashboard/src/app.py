@@ -9,8 +9,8 @@ import os
 
 This very simple webapp allows you to select and visualize players from certain clubs and certain nationalities.
 '''
-# S3_BUCKET_NAME=os.environ['S3_BUCKET_NAME']
-# CSV_FILE_NAME=os.environ['CSV_FILE_NAME']
+S3_BUCKET_NAME=os.environ['S3_BUCKET_NAME']
+CSV_FILE_NAME=os.environ['CSV_FILE_NAME']
 # S3_FILE_PATH='s3://' + str(S3_BUCKET_NAME) + '/' + str(CSV_FILE_NAME)
 # df = st.cache(pd.read_csv)("football_data.csv")
 df = st.cache_data(lambda: pd.read_csv("football_data.csv"))()

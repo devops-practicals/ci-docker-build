@@ -1,0 +1,17 @@
+services:
+  weather-aqi:
+    container_name: weather-aqi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      WAQI_TOKEN_FILE: /run/secrets/waqi_token
+    restart: always
+    secrets:
+      - waqi_token
+
+secrets:
+   waqi_token:
+     file: waqi_token.txt
